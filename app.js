@@ -1,6 +1,14 @@
 const express = require("express");
 const app = express();
 const GMCall = require('./GMCall')
+//Cors even though it's only being used for the POST route
+const cors = require ('cors');
+app.use(cors());
+app.set('trust proxy', true);
+
+//Body Parser settings built into Express so we can see req.body
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 app.get("/vehicles/:id/fuel", (req,res) =>{
@@ -29,7 +37,6 @@ app.get("/vehicles/:id/doors", (req,res) =>{
     if(data.status == undefined){
       res.send(data)
     }
-    console.log(data.status)
     if(data.status == 404){
       //status code is sent as a string so using ==
       res.send('Vehicle ID was not found, please try another ID')
@@ -53,7 +60,6 @@ app.get("/vehicles/:id/battery", (req,res) =>{
     if(data.status == undefined){
       res.send(data)
     }
-    console.log(data.status)
     if(data.status == 404){
       //status code is sent as a string so using ==
       res.send('Vehicle ID was not found, please try another ID')
@@ -67,14 +73,32 @@ app.get("/vehicles/:id/battery", (req,res) =>{
 
 })
 
-app.post("/vehicles/:id/engine", (req,res) =>{
+app.post("/vehicles/:id/engine", cors(), (req,res) =>{
   let id = req.params.id
+  let request = req.body
   let comHash = {
     "START" : "START_VEHICLE",
     "STOP"  : "STOP_VEHICLE"
   }
-  console.log(req.body.action)
-  res.send(status)
+  if(comHash[request.action] == undefined){
+    res.send('Please send a correct command')
+  }
+  else{
+    GMCall(id, 'startStop', function(data){
+      if(data.status == undefined){
+        res.send(data)
+      }
+      if(data.status == 404){
+        //status code is sent as a string so using ==
+        res.send('Vehicle ID was not found, please try another ID')
+      }
+      else{
+        let stat = data.actionResult.status == "EXECUTED" ? "success" : "error"
+        let engineRes = {status: stat }
+        res.send(engineRes)
+      }
+    }, comHash[request.action])
+  }
 })
 
 
