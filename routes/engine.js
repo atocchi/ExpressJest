@@ -15,6 +15,9 @@ app.use(express.json());
 app.post("/vehicles/:id/engine", (req,res) =>{
     let id = req.params.id
     let request = req.body
+    console.log('Post request recieved @ API: see below for details')
+    console.log(request)
+    console.log('################################')
     let comHash = {
       "START" : "START_VEHICLE",
       "STOP"  : "STOP_VEHICLE"
@@ -29,6 +32,8 @@ app.post("/vehicles/:id/engine", (req,res) =>{
         }
         else if(data.status == 404){
           //status code is sent as a string so using ==
+          console.log(`404 from GM: Vehicle ID was ${id}`)
+          console.log('################################')
           let error ={error: 'Vehicle ID was not found, please try another ID'}
           res.send(error)
         }
@@ -36,6 +41,11 @@ app.post("/vehicles/:id/engine", (req,res) =>{
           //ternary to translate GM api to Smartcar
           let stat = data.actionResult.status == "EXECUTED" ? "success" : "error"
           let engineRes = {status: stat }
+          console.log('Reforming data from GM API: see below')
+          console.log(engineRes)
+          console.log('################################')
+          console.log('End of API call')
+          console.log('********************************')
           res.send(engineRes)
         }
       }, comHash[request.action])

@@ -16,5 +16,13 @@ app.use(doors)
 app.use(engine)
 app.use(info)
 
+//Wildcard Route for anything that isn't properly formed etc.
+app.get("/*", (req,res) =>{
+  console.log('404: User requested a route that does not exist, details below')
+  console.log(req.params[0])
+  console.log('################################')
+  res.sendStatus(404)
+})
+
 
 module.exports = app;

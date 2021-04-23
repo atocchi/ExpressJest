@@ -11,6 +11,8 @@ app.get("/vehicles/:id/doors", (req,res) =>{
       }
       else if(data.status == 404){
         //status code is sent as a string so using ==
+        console.log(`404 from GM: Vehicle ID was ${id}`)
+        console.log('################################')
         let error = {error: 'Vehicle ID was not found, please try another ID'}
         res.send(error)
       }
@@ -21,6 +23,11 @@ app.get("/vehicles/:id/doors", (req,res) =>{
         info.doors.values.map((doors) =>{
           doorHash[doors.location.value] = doors.locked.value
         })
+        console.log('Reforming data from GM API: see below')
+        console.log(doorHash)
+        console.log('################################')
+        console.log('End of API call')
+        console.log('********************************')
         res.send(doorHash)
       }
     })

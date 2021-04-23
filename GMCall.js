@@ -38,13 +38,20 @@ if(route === 'startStop'){
     }
 let data = {"id" : id, "responseType": "JSON", "command": command}
 //main Axios call, includes error handling if we do not get a 200 to proceed 
+console.log(`Sending data to ${API}: see below for data`)
+console.log(data)
+console.log('################################')
 axios.post(`${GMAPI}/${API}`, data).then(function (res){
     if(res.status === 200){
+        console.log('Data recieved: see below')
+        console.log(res.data)
+        console.log('################################')
         //this will still 200 even if GM sends back 404 for vehicle not found, 
         callback(res.data)
     }
     else{
         callback({error : `${res.status}: GM API could not be reached, Please try again`})
+        console.log('################################')
     }
 },function(err){
     //This first reponse pretty much only shows up if the server has no internet or can't even get a 404
