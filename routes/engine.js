@@ -38,15 +38,26 @@ app.post("/vehicles/:id/engine", (req,res) =>{
           res.send(error)
         }
         else{
-          //ternary to translate GM api to Smartcar
-          let stat = data.actionResult.status == "EXECUTED" ? "success" : "error"
-          let engineRes = {status: stat }
-          console.log('Reforming data from GM API: see below')
-          console.log(engineRes)
-          console.log('################################')
-          console.log('End of API call')
-          console.log('********************************')
-          res.send(engineRes)
+          try{
+            //ternary to translate GM api to Smartcar
+            let stat = data.actionResult.status == "EXECUTED" ? "success" : "error"
+            let engineRes = {status: stat }
+            console.log('Reforming data from GM API: see below')
+            console.log(engineRes)
+            console.log('################################')
+            console.log('End of API call')
+            console.log('********************************')
+            res.send(engineRes)
+          }
+          catch(err){
+            console.log('Data reformation failed, see below for error logs')
+            console.log(err)
+            console.log('################################')
+            console.log('End of API call')
+            console.log('********************************')
+            resErr = {404: 'Looks like recieved data was malformed or incomplete'}
+            res.send(resErr)
+        }
         }
       }, comHash[request.action])
     }

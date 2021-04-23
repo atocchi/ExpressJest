@@ -17,16 +17,27 @@ app.get("/vehicles/:id/fuel", (req,res) =>{
         res.send(error)
       }
       else{
-        let info = data.data.tankLevel.value
-        //decided to remain with the null as its probably most helpful for users because even though its less readable to humans, to an endpoint it makes more sense
-        let fuelRes = {percent: info}
-        console.log('Reforming data from GM API: see below')
-        console.log(fuelRes)
-        console.log('if you recieve null here, it means the vehicle is electric')
-        console.log('################################')
-        console.log('End of API call')
-        console.log('********************************')
-        res.send(fuelRes)
+        try{
+            let info = data.data.tankLevel.value
+            //decided to remain with the null as its probably most helpful for users because even though its less readable to humans, to an endpoint it makes more sense
+            let fuelRes = {percent: info}
+            console.log('Reforming data from GM API: see below')
+            console.log(fuelRes)
+            console.log('if you recieve null here, it means the vehicle is electric')
+            console.log('################################')
+            console.log('End of API call')
+            console.log('********************************')
+            res.send(fuelRes)
+        }
+        catch(err){
+            console.log('Data reformation failed, see below for error logs')
+            console.log(err)
+            console.log('################################')
+            console.log('End of API call')
+            console.log('********************************')
+            resErr = {404: 'Looks like recieved data was malformed or incomplete'}
+            res.send(resErr)
+        }
       }
     })
   
