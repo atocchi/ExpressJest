@@ -34,7 +34,7 @@ Currently runs 3 tests: ```get.test``` , ```post.test```, and ```gm.test```
 ----------------------------------------
 
 ```
-$ npm test
+$ npm start
 ```
 
 This runs the Express server, currently at port 3000
@@ -74,6 +74,8 @@ Currently all all routes log to the server console, each log is broke up by '###
 
 * app and server are seperate to allow for testing with super-test
 * this repository has been dockerized @ dockerhub, use the folling command to pull ``` docker pull atocchi/smarttest:latest```
+* docker file runs with ```docker run -it --rm -p 3000:3000 smarttest```
+* currently since there was no .Dockerignore it uses my secret.js, so no need to make one
 * future live endpoint will live ```here```
 
 ## TODO
