@@ -12,9 +12,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-
-
-
 app.post("/vehicles/:id/engine", (req,res) =>{
     let id = req.params.id
     let request = req.body
@@ -30,11 +27,13 @@ app.post("/vehicles/:id/engine", (req,res) =>{
         if(data.status == undefined){
           res.send(data)
         }
-        if(data.status == 404){
+        else if(data.status == 404){
           //status code is sent as a string so using ==
-          res.send('Vehicle ID was not found, please try another ID')
+          let error ={error: 'Vehicle ID was not found, please try another ID'}
+          res.send(error)
         }
         else{
+          //ternary to translate GM api to Smartcar
           let stat = data.actionResult.status == "EXECUTED" ? "success" : "error"
           let engineRes = {status: stat }
           res.send(engineRes)

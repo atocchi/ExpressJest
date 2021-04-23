@@ -9,9 +9,10 @@ app.get("/vehicles/:id", (req,res) =>{
       if(data.status == undefined){
         res.send(data)
       }
-      if(data.status == 404){
+      else if(data.status == 404){
         //status code is sent as a string so using ==
-        res.send('Vehicle ID was not found, please try another ID')
+        let error = {error: 'Vehicle ID was not found, please try another ID'}
+        res.send(error)
       }
       else{
         let info = data.data

@@ -3,6 +3,7 @@ const axios = require('axios')
 const secret = require('./secret.js')
 //don't want to make API public, normally would be .ENV for deployment
 const GMAPI = secret.GMAPI
+const fake = secret.fake
 
 //Created this function because we are always expecting JSON, and only ID is changing each call
 //Takes 4 args (id, route, callback, command) 
@@ -21,7 +22,7 @@ let hash = {
     "startStop" : 'actionEngineService'
 }
 let API = hash[route]
-//error handling to limit bad API calls, currently logs and returns so bad API call is not made
+//error handling to limit bad API calls, currently logs and returns so bad API call is not made, the returns exist so that code does not hit GM's API
 if(hash[route] === undefined){
     console.log('Error: Incorrect route, please specify either, info, security, energy, or startStop')
     callback('Fail: Wrong Route')
@@ -43,11 +44,17 @@ axios.post(`${GMAPI}/${API}`, data).then(function (res){
         callback(res.data)
     }
     else{
-        callback(`Error ${res.status}: GM API could not be reached, Please try again`)
+        callback({error : `${res.status}: GM API could not be reached, Please try again`})
     }
 },function(err){
-    //This is if we get errcode instead of a status code, like say if the machine isn't connected to the internet
-    callback(err.code + ': Please check your connection status')
+    //This first reponse pretty much only shows up if the server has no internet or can't even get a 404
+    if(err.response == undefined){
+        callback(err.code  + ': Please check your connection status')
+    }
+    //this error is uncommon but helps stop the server from hanging if GM is giving at actual 404 due to traffic or moving
+    else{
+        callback(err.response.status + ': Could not communicate with GM API')
+    }
 } )
 }
 
