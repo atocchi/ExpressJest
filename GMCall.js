@@ -3,7 +3,8 @@ const axios = require('axios')
 const secret = require('./secret.js')
 //don't want to make API public, normally would be .ENV for deployment
 const GMAPI = secret.GMAPI
-const fake = secret.fake
+//I added a fake http like to send bad status codes just to test, you could add that too if you want
+// const fake = secret.fake
 
 //Created this function because we are always expecting JSON, and only ID is changing each call
 //Takes 4 args (id, route, callback, command) 
