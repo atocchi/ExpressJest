@@ -58,7 +58,7 @@ while the express sever is running there are 5 routes: ```info``` , ```fuel``` ,
     * doors is a GET request that sends a JSON object (see below for sample)
       {"frontLeft": "false", "frontRight": "false"}
       Keep in mind there can be 2 - 4 doors
-    doorss actual route is HOST:PORT/vehicles/:id/doors
+    doors actual route is HOST:PORT/vehicles/:id/doors
 
     * engine is a POST request that expects a JSON object (see below for sample)
       {"action": "START" || "STOP"}
