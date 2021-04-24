@@ -1,12 +1,13 @@
 # Smart Test
-For this API I used a template for JEST / supertest testing with Express
+For this API I used a template for JEST / supertest testing with Express,
+there is a another branch of this repository -lessverbose, which has less verbose logging and comments, check it out
 
 
 ## Setup
 1) Create a secret.js file, should look something like below
 ```
 const secret = {
-    GMAPI: 'http://<REALGMAPIHER>/'
+    GMAPI: 'http://<REALGMAPIHERE>/'
 }
 
 module.exports= secret;
@@ -16,7 +17,7 @@ module.exports= secret;
  ```
    $ npm i
    ```
-4) Run one of the server-side comands below
+4) Run one of the server-side commands below
 ---------------------------------
 
 ## Server-Side Commands
@@ -27,11 +28,11 @@ module.exports= secret;
 $ npm test
 ```
 
-This runs the JEST testing Suite, there are 3 simples tests and 5 unit tests.
+This runs the JEST testing Suite, there are 3 simple tests and 5 unit tests.
 
 All test can be ran with individually with ```$npm test $NAME``` where ```$NAME``` is whatever comes before ```.test```
 
-**FYI tests will fail due to latency issues, with failures its a good idea to run them twice incase of server latency**
+**FYI tests will fail due to latency issues, with failures it's a good idea to run them twice in case of server latency**
 
 Currently runs 3 simples tests: ```get.test``` , ```post.test```, and ```gm.test```
 
@@ -41,7 +42,7 @@ Currently runs 3 simples tests: ```get.test``` , ```post.test```, and ```gm.test
 
 Currently runs 5 unit tests, ```battery.test``` , ```fuel.test``` , ```engine.test``` , ```info.test``` , and ```doors.test```
 
-These test all check to make sure that respective routes return the correct JSON data, you can see the expected data in the next section below.
+These tests all check to make sure that respective routes return the correct JSON data, you can see the expected data in the next section below.
     
 ----------------------------------------
 
@@ -51,9 +52,9 @@ $ npm start
 
 This runs the Express server, currently at port 3000
 
-while the express sever is running there are 5 routes: ```info``` , ```fuel``` , ```battery``` , ```doors```, and ```engine```
+while the express server is running there are 5 routes: ```info``` , ```fuel``` , ```battery``` , ```doors```, and ```engine```
 
-all these requests take an id in the form of a numerical string in ther respective url, for example HOST:PORT/vehicles/```:id``` with the string replacing ```:id```
+all these requests take an id in the form of a numerical string in their respective url, for example HOST:PORT/vehicles/```:id``` with the string replacing ```:id```
 
 All API urls are accessed from HOST:PORT```/vehicles/```/```:id```
 
@@ -103,12 +104,10 @@ Currently all all routes log to the server console, each log is broke up by '###
 
 ### notes:
 
-* app and server are seperate to allow for testing with super-test
+* app and server are separated to allow for testing with super-test
 * I went very heavy on the logging, I did this to try to show my flow and thought process, it can make the tests a pain to read and for that I apologize
 * this repository has been dockerized @ dockerhub, use the folling command to pull ``` docker pull atocchi/smarttest:latest```
 * docker file runs with ```docker run -it --rm -p 3000:3000 smarttest```
 
 
 
-## TODO
-+ add proper carriage returns in missing areas
