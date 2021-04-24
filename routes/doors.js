@@ -22,7 +22,8 @@ app.get("/vehicles/:id/doors", (req,res) =>{
           //Create a hashmap so that we always have the right amount of doors, no matter the model
           let doorHash = {}
           info.doors.values.map((doors) =>{
-            doorHash[doors.location.value] = doors.locked.value
+            //creates object and correctly transfer strings into booleans
+            doorHash[doors.location.value] = (doors.locked.value == "True" ? true : false)
           })
           console.log('Reforming data from GM API: see below')
           console.log(doorHash)
