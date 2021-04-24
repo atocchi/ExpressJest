@@ -11,7 +11,7 @@ const secret = {
 
 module.exports= secret;
 ```
-2) Place it the route directory alongside server.js & app.js
+2) Place it the root directory alongside server.js & app.js
 3) Install node_modules with npm
  ```
    $ npm i
@@ -27,13 +27,19 @@ module.exports= secret;
 $ npm test
 ```
 
-This runs the JEST testing Suite, tests are very simple for now
+This runs the JEST testing Suite, there are 3 simples tests and 5 unit tests.
 
-Currently runs 3 tests: ```get.test``` , ```post.test```, and ```gm.test```
+All test can be ran with individually with ```$npm test $NAME``` where ```$NAME``` is whatever comes before ```.test```
+
+Currently runs 3 simples tests: ```get.test``` , ```post.test```, and ```gm.test```
 
     * get.test checks for a 200 status code for all GET routes
     * post.test checks for a 200 status code for all POST routes
     * gm.test checks a dummy ID against the GM API, expects a response
+
+Currently runs 5 unit tests, ```battery.test``` , ```fuel.test``` , ```engine.test``` , ```info.test``` , and ```doors.test```
+
+These test all check to make sure that respective routes return the correct JSON data, you can see the expected data in the next section below.
     
 ----------------------------------------
 
@@ -96,12 +102,11 @@ Currently all all routes log to the server console, each log is broke up by '###
 ### notes:
 
 * app and server are seperate to allow for testing with super-test
+* I went very heavy on the logging, I did this to try to show my flow and thought process, it can make the tests a pain to read and for that I apologize
 * this repository has been dockerized @ dockerhub, use the folling command to pull ``` docker pull atocchi/smarttest:latest```
 * docker file runs with ```docker run -it --rm -p 3000:3000 smarttest```
-* currently since there was no .Dockerignore it uses my secret.js, so no need to make one
-* future live endpoint will live ```here```
+
+
 
 ## TODO
-+ use process.env instead of secret.js file
-+ better tests
-+ more error handling
++ add proper carriage returns in missing areas

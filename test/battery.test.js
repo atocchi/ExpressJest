@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 
-//Live Test for Fuel route using both dummy ids
+//Live Test for Battery route using both dummy ids
 function getInfo(id){
     describe("Testing the GET route for battery", () => {
       test("Expecting valid JSON from Battery", done => {
