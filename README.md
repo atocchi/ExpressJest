@@ -108,6 +108,7 @@ Currently all all routes log to the server console, each log is broke up by '###
 * I went very heavy on the logging, I did this to try to show my flow and thought process, it can make the tests a pain to read and for that I apologize
 * this repository has been dockerized @ dockerhub, use the folling command to pull ``` docker pull atocchi/smarttest:latest```
 * docker file runs with ```docker run -it --rm -p 3000:3000 smarttest```
+* this container is live on IBM kubernetes at endpoint ```http://169.57.43.142:30502/vehicles/``` currently it is only a single pod
 
 
 
