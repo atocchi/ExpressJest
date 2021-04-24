@@ -3,18 +3,18 @@ const GMCall = require('../GMCall');
 const app = express.Router();
 
 app.get("/vehicles/:id/fuel", (req,res) =>{
-    let id = req.params.id
+    let id = req.params.id;
     GMCall(id, 'energy', function(data){
       //this is the error handler for uncommon errors, mainly if the computer isn't connected to the internet
       if(data.status == undefined){
-        res.send(data)
+        res.send(data);
       }
       else if(data.status == 404){
         //status code is sent as a string so using ==
-        console.log(`404 from GM: Vehicle ID was ${id}`)
-        console.log('################################')
-        let error = {error: 'Vehicle ID was not found, please try another ID'}
-        res.send(error)
+        console.log(`404 from GM: Vehicle ID was ${id}`);
+        console.log('################################');
+        let error = {error: 'Vehicle ID was not found, please try another ID'};
+        res.send(error);
       }
       else{
         try{
@@ -31,17 +31,17 @@ app.get("/vehicles/:id/fuel", (req,res) =>{
             res.send(fuelRes);
         }
         catch(err){
-            console.log('Data reformation failed, see below for error logs')
-            console.log(err)
-            console.log('################################')
-            console.log('End of API call')
-            console.log('********************************')
-            resErr = {404: 'Looks like recieved data was malformed or incomplete'}
-            res.send(resErr)
-        }
-      }
-    })
+            console.log('Data reformation failed, see below for error logs');
+            console.log(err);
+            console.log('################################');
+            console.log('End of API call');
+            console.log('********************************');
+            resErr = {404: 'Looks like recieved data was malformed or incomplete'};
+            res.send(resErr);
+        };
+      };
+    });
   
-  })
+  });
 
   module.exports = app;

@@ -21,49 +21,49 @@ let hash = {
     "security": 'getSecurityStatusService',
     "energy": 'getEnergyService',
     "startStop" : 'actionEngineService'
-}
-let API = hash[route]
+};
+let API = hash[route];
 //error handling to limit bad API calls, currently logs and returns so bad API call is not made, the returns exist so that code does not hit GM's API
 if(hash[route] === undefined){
-    console.log('Error: Incorrect route, please specify either, info, security, energy, or startStop')
-    callback('Fail: Wrong Route')
-    return
-}
+    console.log('Error: Incorrect route, please specify either, info, security, energy, or startStop');
+    callback('Fail: Wrong Route');
+    return;
+};
 if(route === 'startStop'){
     if(command !== 'STOP_VEHICLE' && command !=='START_VEHICLE'){
-        console.log(command)
-        console.log('Error: startStop requires a command arg, either START_VEHICLE or STOP_VEHICLE')
-        callback('Fail: Wrong Command')
-        return
-        }
-    }
-let data = {"id" : id, "responseType": "JSON", "command": command}
+        console.log(command);
+        console.log('Error: startStop requires a command arg, either START_VEHICLE or STOP_VEHICLE');
+        callback('Fail: Wrong Command');
+        return;
+        };
+    };
+let data = {"id" : id, "responseType": "JSON", "command": command};
 //main Axios call, includes error handling if we do not get a 200 to proceed 
-console.log(`Sending data to ${API}: see below for data`)
-console.log(data)
-console.log('################################')
+console.log(`Sending data to ${API}: see below for data`);
+console.log(data);
+console.log('################################');
 axios.post(`${GMAPI}/${API}`, data).then(function (res){
     if(res.status === 200){
-        console.log('Data recieved: see below')
-        console.log(res.data)
-        console.log('################################')
+        console.log('Data recieved: see below');
+        console.log(res.data);
+        console.log('################################');
         //this will still 200 even if GM sends back 404 for vehicle not found, 
-        callback(res.data)
+        callback(res.data);
     }
     else{
-        callback({error : `${res.status}: GM API could not be reached, Please try again`})
-        console.log('################################')
+        callback({error : `${res.status}: GM API could not be reached, Please try again`});
+        console.log('################################');
     }
 },function(err){
     //This first reponse pretty much only shows up if the server has no internet or can't even get a 404
     if(err.response == undefined){
-        callback(err.code  + ': Please check your connection status')
+        callback(err.code  + ': Please check your connection status');
     }
     //this error is uncommon but helps stop the server from hanging if GM is giving at actual 404 due to traffic or moving
     else{
-        callback(err.response.status + ': Could not communicate with GM API')
+        callback(err.response.status + ': Could not communicate with GM API');
     }
-} )
-}
+} );
+};
 
-module.exports =(GMCall)
+module.exports =(GMCall);

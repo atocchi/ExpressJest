@@ -31,6 +31,8 @@ This runs the JEST testing Suite, there are 3 simples tests and 5 unit tests.
 
 All test can be ran with individually with ```$npm test $NAME``` where ```$NAME``` is whatever comes before ```.test```
 
+**FYI tests will fail due to latency issues, with failures its a good idea to run them twice incase of server latency**
+
 Currently runs 3 simples tests: ```get.test``` , ```post.test```, and ```gm.test```
 
     * get.test checks for a 200 status code for all GET routes
